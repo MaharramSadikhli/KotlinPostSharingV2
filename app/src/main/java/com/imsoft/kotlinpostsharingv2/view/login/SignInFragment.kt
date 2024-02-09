@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.imsoft.kotlinpostsharingv2.R
+import com.imsoft.kotlinpostsharingv2.databinding.FragmentSignInBinding
 
 
 class SignInFragment : Fragment() {
 
+    private lateinit var binding: FragmentSignInBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,16 +22,22 @@ class SignInFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+        binding = FragmentSignInBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.signInButton.setOnClickListener {
+            val action = SignInFragmentDirections.actionSignInFragmentToGetPostsFragment()
+            Navigation.findNavController(it).navigate(action)
+        }
+
     }
 
-    fun signUpBtnClick(view: View) {}
-    fun signInBtnClick(view: View) {}
+
 
 }

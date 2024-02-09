@@ -34,7 +34,6 @@
         android:id="@+id/deleteBtnUserHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="deletePostBtnClick"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/delete_btn_background"

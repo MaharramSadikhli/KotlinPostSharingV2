@@ -3,27 +3,58 @@ package com.imsoft.kotlinpostsharingv2.view.userHome
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.imsoft.kotlinpostsharingv2.R
+import com.imsoft.kotlinpostsharingv2.databinding.FragmentUserHomeBinding
+import com.imsoft.kotlinpostsharingv2.view.GetPostsFragmentDirections
 
+@Suppress("DEPRECATION")
 class UserHomeFragment : Fragment() {
 
+    private lateinit var binding: FragmentUserHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_home, container, false)
+        binding = FragmentUserHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    fun deletePostBtnClick(view: View) {}
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_user, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == R.id.add_post_menu_user) {
+
+
+
+        } else if (item.itemId == R.id.go_to_post_feed) {
+
+
+
+        } else {
+
+            // log_out_menu_user
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
 
 
 }
