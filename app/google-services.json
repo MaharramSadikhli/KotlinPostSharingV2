@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "431182508523",
+    "project_id": "kotlinpostsharingv2",
+    "storage_bucket": "kotlinpostsharingv2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431182508523:android:f93a5911e660bca7df29ae",
+        "android_client_info": {
+          "package_name": "com.imsoft.kotlinpostsharingv2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxOhJxYHG-Y1prtKwFYr1JcIV6PuPwhQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
