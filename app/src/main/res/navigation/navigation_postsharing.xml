@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_postsharing">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_postsharing"
+    app:startDestination="@id/signInFragment">
 
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.imsoft.kotlinpostsharingv2.view.login.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_getPostsFragment"
+            app:destination="@id/getPostsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.imsoft.kotlinpostsharingv2.view.login.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_getPostsFragment"
+            app:destination="@id/getPostsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getPostsFragment"
+        android:name="com.imsoft.kotlinpostsharingv2.view.GetPostsFragment"
+        android:label="fragment_get_posts"
+        tools:layout="@layout/fragment_get_posts" >
+        <action
+            android:id="@+id/action_getPostsFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_getPostsFragment_to_userHomeFragment"
+            app:destination="@id/userHomeFragment" />
+        <action
+            android:id="@+id/action_getPostsFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userHomeFragment"
+        android:name="com.imsoft.kotlinpostsharingv2.view.userHome.UserHomeFragment"
+        android:label="fragment_user_home"
+        tools:layout="@layout/fragment_user_home" >
+        <action
+            android:id="@+id/action_userHomeFragment_to_getPostsFragment"
+            app:destination="@id/getPostsFragment" />
+        <action
+            android:id="@+id/action_userHomeFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_userHomeFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.imsoft.kotlinpostsharingv2.view.userHome.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" >
+        <action
+            android:id="@+id/action_addPostFragment_to_getPostsFragment"
+            app:destination="@id/getPostsFragment" />
+    </fragment>
 </navigation>

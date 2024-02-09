@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- Add Post -->
+    <item
+        android:id="@+id/add_post_menu_user"
+        android:title="@string/add_post" />
+    <!-- Posts -->
+    <item
+        android:id="@+id/go_to_post_feed"
+        android:title="@string/post_feed" />
+    <!-- Log Out -->
+    <item
+        android:id="@+id/log_out_menu_user"
+        android:title="@string/log_out" />
+
+</menu>
