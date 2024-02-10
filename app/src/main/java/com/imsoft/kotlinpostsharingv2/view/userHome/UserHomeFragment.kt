@@ -9,6 +9,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.imsoft.kotlinpostsharingv2.R
 import com.imsoft.kotlinpostsharingv2.databinding.FragmentUserHomeBinding
 import com.imsoft.kotlinpostsharingv2.view.GetPostsFragmentDirections
@@ -17,6 +20,7 @@ import com.imsoft.kotlinpostsharingv2.view.GetPostsFragmentDirections
 class UserHomeFragment : Fragment() {
 
     private lateinit var binding: FragmentUserHomeBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +34,12 @@ class UserHomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentUserHomeBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        auth = Firebase.auth
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -51,6 +61,7 @@ class UserHomeFragment : Fragment() {
         } else {
 
             // log_out_menu_user
+            auth.signOut()
             val actionLogOut = UserHomeFragmentDirections.actionUserHomeFragmentToSignInFragment()
             Navigation.findNavController(binding.root).navigate(actionLogOut)
 

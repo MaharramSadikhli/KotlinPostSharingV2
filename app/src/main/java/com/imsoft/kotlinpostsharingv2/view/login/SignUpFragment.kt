@@ -88,6 +88,14 @@ class SignUpFragment : Fragment() {
                     Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_LONG).show()
                 }
 
+        } else if (email == "" && password.isNotEmpty() && username.isNotEmpty()) {
+            Toast.makeText(requireContext(), "Enter email!", Toast.LENGTH_LONG).show()
+        } else if (password == "" && email.isNotEmpty() && username.isNotEmpty()) {
+            Toast.makeText(requireContext(), "Enter password!", Toast.LENGTH_LONG).show()
+        } else if (username == "" && email.isNotEmpty() && password.isNotEmpty()) {
+            Toast.makeText(requireContext(), "Enter user name!", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), "Enter email, user name and password!", Toast.LENGTH_LONG).show()
         }
 
 

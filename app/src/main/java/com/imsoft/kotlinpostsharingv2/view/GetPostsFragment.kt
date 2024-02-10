@@ -9,6 +9,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.imsoft.kotlinpostsharingv2.R
 import com.imsoft.kotlinpostsharingv2.databinding.FragmentGetPostsBinding
 
@@ -17,6 +21,7 @@ import com.imsoft.kotlinpostsharingv2.databinding.FragmentGetPostsBinding
 class GetPostsFragment : Fragment() {
 
     private lateinit var binding: FragmentGetPostsBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,12 @@ class GetPostsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentGetPostsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        auth = Firebase.auth
     }
 
 
@@ -51,9 +62,9 @@ class GetPostsFragment : Fragment() {
 
         } else {
 
+            auth.signOut()
             val actionLogOut = GetPostsFragmentDirections.actionGetPostsFragmentToSignInFragment()
             Navigation.findNavController(binding.root).navigate(actionLogOut)
-
         }
 
         return super.onOptionsItemSelected(item)
