@@ -40,15 +40,19 @@ class UserHomeFragment : Fragment() {
 
         if (item.itemId == R.id.add_post_menu_user) {
 
-
+            val actionAddPost = UserHomeFragmentDirections.actionUserHomeFragmentToAddPostFragment()
+            Navigation.findNavController(binding.root).navigate(actionAddPost)
 
         } else if (item.itemId == R.id.go_to_post_feed) {
 
-
+            val actionPostMenu = UserHomeFragmentDirections.actionUserHomeFragmentToGetPostsFragment()
+            Navigation.findNavController(binding.root).navigate(actionPostMenu)
 
         } else {
 
             // log_out_menu_user
+            val actionLogOut = UserHomeFragmentDirections.actionUserHomeFragmentToSignInFragment()
+            Navigation.findNavController(binding.root).navigate(actionLogOut)
 
         }
 

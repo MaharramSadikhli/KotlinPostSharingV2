@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.imsoft.kotlinpostsharingv2.R
+import com.imsoft.kotlinpostsharingv2.databinding.FragmentAddPostBinding
 
 
 class AddPostFragment : Fragment() {
 
+    private lateinit var binding: FragmentAddPostBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,13 +22,22 @@ class AddPostFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_post, container, false)
+        binding = FragmentAddPostBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    fun selectImage(view: View) {}
-    fun addPostBtnClick(view: View) {}
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.addPostButton.setOnClickListener(addPost)
+    }
+
+    private val addPost = View.OnClickListener {
+        val actionAddPost = AddPostFragmentDirections.actionAddPostFragmentToGetPostsFragment()
+        Navigation.findNavController(it).navigate(actionAddPost)
+    }
 
 }

@@ -31,11 +31,19 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.signInButton.setOnClickListener {
-            val action = SignInFragmentDirections.actionSignInFragmentToGetPostsFragment()
-            Navigation.findNavController(it).navigate(action)
-        }
+        binding.signInButton.setOnClickListener(signIn)
+        binding.signUpButtonAtSignIn.setOnClickListener(signUp)
 
+    }
+
+    private val signIn = View.OnClickListener {
+        val actionSignIn = SignInFragmentDirections.actionSignInFragmentToGetPostsFragment()
+        Navigation.findNavController(it).navigate(actionSignIn)
+    }
+
+    private val signUp = View.OnClickListener {
+        val actionSignUp = SignInFragmentDirections.actionSignInFragmentToSignUpFragment()
+        Navigation.findNavController(it).navigate(actionSignUp)
     }
 
 
