@@ -123,9 +123,11 @@ class GetPostsFragment : Fragment() {
 
                             postAdapter.notifyDataSetChanged()
                         }
-                    } else {
-                        Toast.makeText( requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
                     }
+//                    else {
+//                        println(error.localizedMessage)
+//                        Toast.makeText( requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
+//                    }
                 }
 
 

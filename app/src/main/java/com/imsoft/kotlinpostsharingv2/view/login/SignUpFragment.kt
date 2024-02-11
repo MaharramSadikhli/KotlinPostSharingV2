@@ -62,7 +62,7 @@ class SignUpFragment : Fragment() {
                 val atIndex = eMail.indexOf('@')
                 if (atIndex != -1) {
                     val userName = eMail.substring(0, atIndex)
-                    binding.textUserNameSignUp.setText(userName)
+                    binding.textUserNameSignUp.text = userName
                 }
             }
 

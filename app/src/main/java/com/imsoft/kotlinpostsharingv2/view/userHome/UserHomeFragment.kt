@@ -125,10 +125,11 @@ class UserHomeFragment : Fragment() {
 
                         userAdapter.notifyDataSetChanged()
                     }
-                } else {
-                    Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
-                    println(error.localizedMessage)
                 }
+//                else {
+//                    Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
+//                    println(error.localizedMessage)
+//                }
             }
 
     }
