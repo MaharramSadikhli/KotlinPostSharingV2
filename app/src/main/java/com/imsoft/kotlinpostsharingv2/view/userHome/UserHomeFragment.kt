@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,6 +20,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.imsoft.kotlinpostsharingv2.R
+import com.imsoft.kotlinpostsharingv2.adapter.UserAdapter
 import com.imsoft.kotlinpostsharingv2.databinding.FragmentUserHomeBinding
 import com.imsoft.kotlinpostsharingv2.model.Posts
 import com.imsoft.kotlinpostsharingv2.view.GetPostsFragmentDirections
@@ -31,6 +33,7 @@ class UserHomeFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
     private lateinit var postList: ArrayList<Posts>
+    private lateinit var userAdapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,10 @@ class UserHomeFragment : Fragment() {
         storage = Firebase.storage
 
         postList = ArrayList<Posts>()
+
+        binding.recyclerViewUserHome.layoutManager = LinearLayoutManager(requireContext())
+        userAdapter = UserAdapter(postList)
+        binding.recyclerViewUserHome.adapter = userAdapter
 
         getUserPosts()
     }
@@ -89,10 +96,14 @@ class UserHomeFragment : Fragment() {
 
     private fun getUserPosts() {
 
-        val uid = auth.currentUser?.uid
+        val currentUser = auth.currentUser!!.email
+        val atIndex = currentUser!!.indexOf('@')
+
+        val user = currentUser.substring(0, atIndex)
+
 
         firestore.collection("Posts")
-            .whereEqualTo("userId", uid)
+            .whereEqualTo("userName", user)
             .orderBy("date", Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->
                 if (error == null) {
@@ -112,7 +123,7 @@ class UserHomeFragment : Fragment() {
                             postList.add(post)
                         }
 
-//                        postAdapter.notifyDataSetChanged()
+                        userAdapter.notifyDataSetChanged()
                     }
                 } else {
                     Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
