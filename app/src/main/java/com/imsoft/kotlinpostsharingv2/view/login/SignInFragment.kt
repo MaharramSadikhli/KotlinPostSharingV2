@@ -38,9 +38,6 @@ class SignInFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(inflater, container, false)
 
-
-
-
         return binding.root
     }
 
@@ -51,6 +48,7 @@ class SignInFragment : Fragment() {
         auth = Firebase.auth
         firestore = Firebase.firestore
 
+        // Remember User
         val currentUser = auth.currentUser
         if (currentUser != null) {
             val actionSignIn = SignInFragmentDirections.actionSignInFragmentToGetPostsFragment()
@@ -58,8 +56,8 @@ class SignInFragment : Fragment() {
         }
 
 
-        binding.signInButton.setOnClickListener(signIn)
-        binding.signUpButtonAtSignIn.setOnClickListener(signUp)
+        binding.signInButton.setOnClickListener(signIn) // Sign In
+        binding.signUpButtonAtSignIn.setOnClickListener(signUp) // Go to Sign Up Fragment
 
 
     }
@@ -90,6 +88,7 @@ class SignInFragment : Fragment() {
 
     }
 
+    // Go to Sign Up Fragment
     private val signUp = View.OnClickListener {
 
         val actionSignUp = SignInFragmentDirections.actionSignInFragmentToSignUpFragment()

@@ -1,6 +1,8 @@
 package com.imsoft.kotlinpostsharingv2.view.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +51,26 @@ class SignUpFragment : Fragment() {
         binding.signInButtonAtSignUp.setOnClickListener(signIn)
         binding.signUpButtonAtSignUp.setOnClickListener(signUp)
 
+
+        binding.textEmailSignUp.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val eMail = s.toString()
+                val atIndex = eMail.indexOf('@')
+                if (atIndex != -1) {
+                    val userName = eMail.substring(0, atIndex)
+                    binding.textUserNameSignUp.setText(userName)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
     }
 
 
@@ -62,6 +84,8 @@ class SignUpFragment : Fragment() {
         val email = binding.textEmailSignUp.text.toString()
         val password = binding.textPasswordSignUp.text.toString()
         val username = binding.textUserNameSignUp.text.toString()
+
+
 
         if (email.isNotEmpty() && password.isNotEmpty() && username.isNotEmpty()) {
 
