@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.imsoft.kotlinpostsharingv2.R
@@ -88,32 +89,37 @@ class GetPostsFragment : Fragment() {
 
         firestore.collection("Posts").addSnapshotListener { value, error ->
 
-            if (error == null) {
-                if (value != null && !(value.isEmpty)) {
-                    val documents = value.documents
+            firestore.collection("Posts")
+                .orderBy("date", Query.Direction.DESCENDING)
+                .addSnapshotListener { value, error ->
+                    if (error == null) {
+                        if (value != null && !(value.isEmpty)) {
+                            val documents = value.documents
 
 
-                    for (document in documents) {
-                        val username = document["userName"] as String
+                            for (document in documents) {
+                                val username = document["userName"] as String
 
 
-                        val comment = document["userComment"] as String
-                        val downloadUrl = document["downloadUrl"] as String
+                                val comment = document["userComment"] as String
+                                val downloadUrl = document["downloadUrl"] as String
 
-                        val post = Posts(username, comment, downloadUrl)
-
-
-                        println(username)
-                        postList.add(post)
+                                val post = Posts(username, comment, downloadUrl)
 
 
+                                println(username)
+                                postList.add(post)
+
+
+                            }
+                        } else {
+                            println("hata")
+                        }
+                    } else {
+                        Toast.makeText( requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
                     }
-                } else {
-                    println("hata")
                 }
-            } else {
-                Toast.makeText( requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
-            }
+
 
         }
 
