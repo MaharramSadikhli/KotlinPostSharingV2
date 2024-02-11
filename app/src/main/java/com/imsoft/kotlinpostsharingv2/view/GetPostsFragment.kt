@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,6 +20,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.imsoft.kotlinpostsharingv2.R
+import com.imsoft.kotlinpostsharingv2.adapter.PostAdapter
 import com.imsoft.kotlinpostsharingv2.databinding.FragmentGetPostsBinding
 import com.imsoft.kotlinpostsharingv2.model.Posts
 
@@ -29,6 +32,7 @@ class GetPostsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var postList: ArrayList<Posts>
+    private lateinit var postAdapter: PostAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +58,10 @@ class GetPostsFragment : Fragment() {
         postList = ArrayList<Posts>()
 
         getPost()
+
+        binding.recyclerViewGetPost.layoutManager = LinearLayoutManager(requireContext())
+        postAdapter = PostAdapter(postList)
+        binding.recyclerViewGetPost.adapter = postAdapter
 
     }
 
@@ -96,6 +104,7 @@ class GetPostsFragment : Fragment() {
                         if (value != null && !(value.isEmpty)) {
                             val documents = value.documents
 
+                            postList.clear()
 
                             for (document in documents) {
                                 val username = document["userName"] as String
@@ -107,13 +116,12 @@ class GetPostsFragment : Fragment() {
                                 val post = Posts(username, comment, downloadUrl)
 
 
-                                println(username)
                                 postList.add(post)
 
 
                             }
-                        } else {
-                            println("hata")
+
+                            postAdapter.notifyDataSetChanged()
                         }
                     } else {
                         Toast.makeText( requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
