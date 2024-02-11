@@ -8,13 +8,17 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.imsoft.kotlinpostsharingv2.R
 import com.imsoft.kotlinpostsharingv2.databinding.FragmentGetPostsBinding
+import com.imsoft.kotlinpostsharingv2.model.Posts
 
 
 @Suppress("DEPRECATION")
@@ -22,6 +26,8 @@ class GetPostsFragment : Fragment() {
 
     private lateinit var binding: FragmentGetPostsBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var postList: ArrayList<Posts>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +40,7 @@ class GetPostsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentGetPostsBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -41,6 +48,12 @@ class GetPostsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = Firebase.auth
+        firestore = Firebase.firestore
+
+        postList = ArrayList<Posts>()
+
+        getPost()
+
     }
 
 
@@ -68,6 +81,42 @@ class GetPostsFragment : Fragment() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun getPost() {
+
+        firestore.collection("Posts").addSnapshotListener { value, error ->
+
+            if (error == null) {
+                if (value != null && !(value.isEmpty)) {
+                    val documents = value.documents
+
+
+                    for (document in documents) {
+                        val username = document["userName"] as String
+
+
+                        val comment = document["userComment"] as String
+                        val downloadUrl = document["downloadUrl"] as String
+
+                        val post = Posts(username, comment, downloadUrl)
+
+
+                        println(username)
+                        postList.add(post)
+
+
+                    }
+                } else {
+                    println("hata")
+                }
+            } else {
+                Toast.makeText( requireContext(), error.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+
+        }
+
     }
 
 
